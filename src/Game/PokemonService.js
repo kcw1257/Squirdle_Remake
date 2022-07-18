@@ -4,7 +4,6 @@ const getAllPokemonData = async(pokemonId) => {
     let pokemonData = await getPokemonData(pokemonId)
     let pokemonGeneration = await getPokemonGeneration(pokemonId)
     let pokemonAllData = {...pokemonData,...pokemonGeneration}
-    console.log(pokemonAllData)
     return {pokemonAllData}
 
 }
@@ -19,8 +18,8 @@ const getPokemonData = async(pokemonId) => {
             name: response.data.name,    // update the value of specific key
             type1: response.data.types[0].type.name,
             type2: type2,
-            height: response.data.height,
-            weight: response.data.weight
+            height: response.data.height/10,
+            weight: response.data.weight/10
         }
         return pokemonJSON;
 }
@@ -33,6 +32,7 @@ const getPokemonGeneration = async(pokemonId) => {
     }
     return pokemonJSON
 };
+
 
 // const searchPokemon = () => {
 //     axios
