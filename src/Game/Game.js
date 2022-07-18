@@ -1,6 +1,6 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import Table from "react-bootstrap/Table";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import PokemonService from "./PokemonService.js";
 
 const Game = () => {
@@ -8,13 +8,13 @@ const Game = () => {
     const [guessedPokemons, setGuessedPokemons] = useState([]);
     const [id, setId] = useState("");
 
-    const randomPokemon = async () => {
+    const handleRandomPokemonButton = async () => {
         let pokemonId = Math.floor(Math.random() * 905);
         let pokemon = await PokemonService.getAllPokemonData(pokemonId);
         setCorrectPokemon(pokemon);
     };
 
-    const searchPokemon = async (id) => {
+    const handleSearchButton = async (id) => {
         let pokemon = await PokemonService.getAllPokemonData(id);
         setGuessedPokemons((oldArray) => [...oldArray, pokemon]);
     };
@@ -23,26 +23,19 @@ const Game = () => {
         <>
             <form>
                 <label>
-                    Enter your name:
+                    Guess a Pokemon:
                     <input
                         type="text"
                         value={id}
                         onChange={(e) => setId(e.target.value)}
+                        placeholder="Pikachu"
                     />
                 </label>
+                <button type="button" onClick={handleSearchButton(id)}>
+                    Submit
+                </button>
             </form>
-            <button
-                onClick={() => {
-                    searchPokemon(id);
-                }}
-            >
-                Submit
-            </button>
-            <button
-                onClick={() => {
-                    randomPokemon();
-                }}
-            >
+            <button onClick={handleRandomPokemonButton}>
                 Get Random Pokemon
             </button>
             <Table striped bordered hover>
