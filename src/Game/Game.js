@@ -1,30 +1,24 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Table from 'react-bootstrap/Table';
 import React, { useEffect, useState } from "react";
-import PokemonService from "./PokemonService.js"
+import PokemonService, { convertNameToId } from "./PokemonService.js"
 
 const Game = () => { 
     const[correctPokemon, setCorrectPokemon] = useState({});
     const[guessedPokemons, setGuessedPokemons] = useState([]);
     const[id,setId] = useState("");
 
-    useEffect(() => {
-        randomPokemon()
-      },[]);
-
-
     const randomPokemon = async() => {
         let pokemonId = (Math.floor(Math.random() * 905))
         let pokemon = await PokemonService.getAllPokemonData(pokemonId)
         setCorrectPokemon(pokemon)
-        // setCorrectPokemon(oldArray => [...oldArray, pokemon]);
-        console.log(correctPokemon)
+        let test = JSON.stringify(correctPokemon.pokemonAllData.name)
+        console.log(test)
     }
 
     const searchPokemon = async(id) => {
         let pokemon = await PokemonService.getAllPokemonData(id)
         setGuessedPokemons(oldArray => [...oldArray, pokemon]);
-        console.log(guessedPokemons)
     }
 
     return (
@@ -55,7 +49,12 @@ const Game = () => {
             <tbody>
             <tr>
                 <td>Your Searched Pokemon</td>
-                {/* <td>{guessedPokemons[0].name}</td> */}
+                <td>{correctPokemon.pokemonAllData !== undefined ? correctPokemon.pokemonAllData.name : <p>loading...</p>}</td>
+                <td>{correctPokemon.pokemonAllData !== undefined ? correctPokemon.pokemonAllData.type1 : <p>loading...</p>}</td>
+                <td>{correctPokemon.pokemonAllData !== undefined ? correctPokemon.pokemonAllData.type2 : <p>loading...</p>}</td>
+                <td>{correctPokemon.pokemonAllData !== undefined ? correctPokemon.pokemonAllData.generation : <p>loading...</p>}</td>
+                <td>{correctPokemon.pokemonAllData !== undefined ? correctPokemon.pokemonAllData.height + "m" : <p>loading...</p>}</td>
+                <td>{correctPokemon.pokemonAllData !== undefined ? correctPokemon.pokemonAllData.weight + "kg" : <p>loading...</p>}</td>    
                 {/* <td>{type1}</td>
                 <td>{type2}</td>
                 <td>{gen}</td>
