@@ -1,38 +1,40 @@
 const axios = require("axios").default;
 
-const getAllPokemonData = async(pokemonId) => {
-    let pokemonData = await getPokemonData(pokemonId)
-    let pokemonGeneration = await getPokemonGeneration(pokemonId)
-    let pokemonAllData = {...pokemonData,...pokemonGeneration}
-    return {pokemonAllData}
-
-}
-
-const getPokemonData = async(pokemonId) => {
-    const response = await axios('https://pokeapi.co/api/v2/pokemon/' + pokemonId);
-    let type2 = null
-        if (response.data.types[1] !== undefined){
-            type2 = response.data.types[1].type.name
-        }
-        let pokemonJSON = {                   // object that we want to update
-            name: response.data.name,    // update the value of specific key
-            type1: response.data.types[0].type.name,
-            type2: type2,
-            height: response.data.height/10,
-            weight: response.data.weight/10
-        }
-        return pokemonJSON;
-}
-
-
-const getPokemonGeneration = async(pokemonId) => {
-    const response = await axios('https://pokeapi.co/api/v2/pokemon-species/' + pokemonId);
-    let pokemonJSON = {
-        generation: response.data.generation.name
-    }
-    return pokemonJSON
+const getAllPokemonData = async (pokemonId) => {
+    let pokemonData = await getPokemonData(pokemonId);
+    let pokemonGeneration = await getPokemonGeneration(pokemonId);
+    let pokemonAllData = { ...pokemonData, ...pokemonGeneration };
+    return pokemonAllData;
 };
 
+const getPokemonData = async (pokemonId) => {
+    const response = await axios(
+        "https://pokeapi.co/api/v2/pokemon/" + pokemonId
+    );
+    let type2 = "None";
+    if (response.data.types[1] !== undefined) {
+        type2 = response.data.types[1].type.name;
+    }
+    let pokemonJSON = {
+        // object that we want to update
+        name: response.data.name, // update the value of specific key
+        type1: response.data.types[0].type.name,
+        type2: type2,
+        height: response.data.height / 10,
+        weight: response.data.weight / 10,
+    };
+    return pokemonJSON;
+};
+
+const getPokemonGeneration = async (pokemonId) => {
+    const response = await axios(
+        "https://pokeapi.co/api/v2/pokemon-species/" + pokemonId
+    );
+    let pokemonJSON = {
+        generation: response.data.generation.name,
+    };
+    return pokemonJSON;
+};
 
 // const searchPokemon = () => {
 //     axios
@@ -63,4 +65,4 @@ const getPokemonGeneration = async(pokemonId) => {
 //   }
 
 // export default getAllPokemonData
-module.exports = {getAllPokemonData: getAllPokemonData}
+module.exports = { getAllPokemonData: getAllPokemonData };
