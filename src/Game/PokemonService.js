@@ -1,3 +1,4 @@
+import MapperUtils from "../utils/MapperUtils";
 const axios = require("axios").default;
 
 const getAllPokemonData = async (pokemonId) => {
@@ -65,4 +66,4 @@ const getPokemonGeneration = async (pokemonId) => {
 //   }
 
 // export default getAllPokemonData
-module.exports = { getAllPokemonData: getAllPokemonData };
+export default { getAllPokemonData };

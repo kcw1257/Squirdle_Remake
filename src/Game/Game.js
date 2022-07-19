@@ -42,7 +42,7 @@ const Game = () => {
         <>
             <form>
                 <label>
-                    Enter your name:
+                    Guess a Pokemon:
                     <input
                         type="text"
                         value={id}
