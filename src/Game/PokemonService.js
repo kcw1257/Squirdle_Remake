@@ -3,9 +3,8 @@ const axios = require("axios").default;
 
 const getAllPokemonData = async (pokemonId) => {
     let pokemonData = await getPokemonData(pokemonId);
-    let pokemonGeneration = await getPokemonGeneration(pokemonId);
-    let pokemonAllData = { ...pokemonData, ...pokemonGeneration };
-    return pokemonAllData;
+    pokemonData.generation = await getPokemonGeneration(pokemonId);
+    return pokemonData;
 };
 
 const getPokemonData = async (pokemonId) => {
@@ -31,10 +30,50 @@ const getPokemonGeneration = async (pokemonId) => {
     const response = await axios(
         "https://pokeapi.co/api/v2/pokemon-species/" + pokemonId
     );
-    let pokemonJSON = {
-        generation: response.data.generation.name,
+    return MapperUtils.mapGenerationToNumber(response.data.generation.name);
+};
+
+const comparePokemonFields = (guessedPokemon, correctPokemon) => {
+    let comparisons = {
+        type1: "x",
+        type2: "x",
+        generation: "=",
+        height: "=",
+        weight: "=",
     };
-    return pokemonJSON;
+    if (guessedPokemon.type1 === correctPokemon.type1) {
+        comparisons.type1 = "✓";
+    }
+    if (guessedPokemon.type2 === correctPokemon.type2) {
+        comparisons.type2 = "✓";
+    }
+    if (guessedPokemon.generation > correctPokemon.generation) {
+        comparisons.generation = "↑";
+    } else if (guessedPokemon.generation < correctPokemon.generation) {
+        comparisons.generation = "↓";
+    }
+    if (guessedPokemon.height > correctPokemon.height) {
+        comparisons.height = "↑";
+    } else if (guessedPokemon.height < correctPokemon.height) {
+        comparisons.height = "↓";
+    }
+    if (guessedPokemon.weight > correctPokemon.weight) {
+        comparisons.weight = "↑";
+    } else if (guessedPokemon.weight < correctPokemon.weight) {
+        comparisons.weight = "↓";
+    }
+    return comparisons;
+};
+
+const getAllPokemonNames = async () => {
+    const response = await axios(
+        "https://pokeapi.co/api/v2/pokemon?offset=0&limit=9999"
+    );
+    const pokemonNames = response.data.results.map((pokemon) => {
+        const pokemonName = { value: pokemon.name, label: pokemon.name };
+        return pokemonName;
+    });
+    return pokemonNames;
 };
 
 // const searchPokemon = () => {
@@ -66,4 +105,4 @@ const getPokemonGeneration = async (pokemonId) => {
 //   }
 
 // export default getAllPokemonData
-export default { getAllPokemonData };
+export default { getAllPokemonData, comparePokemonFields, getAllPokemonNames };
