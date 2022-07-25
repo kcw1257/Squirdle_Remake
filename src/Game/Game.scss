@@ -1,0 +1,21 @@
+.gameBox {
+    margin-top: 10px;
+    padding-top: 0px;
+    padding-bottom: 10px;
+    border-radius: 10px;
+    border-width: 5px;
+    background-color: #395b64;
+}
+
+.flexbox {
+    margin-top: 25px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 25px;
+}
+
+.flexbox2 {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+}

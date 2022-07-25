@@ -48,19 +48,19 @@ const comparePokemonFields = (guessedPokemon, correctPokemon) => {
         comparisons.type2 = "✓";
     }
     if (guessedPokemon.generation > correctPokemon.generation) {
-        comparisons.generation = "↑";
-    } else if (guessedPokemon.generation < correctPokemon.generation) {
         comparisons.generation = "↓";
+    } else if (guessedPokemon.generation < correctPokemon.generation) {
+        comparisons.generation = "↑";
     }
     if (guessedPokemon.height > correctPokemon.height) {
-        comparisons.height = "↑";
-    } else if (guessedPokemon.height < correctPokemon.height) {
         comparisons.height = "↓";
+    } else if (guessedPokemon.height < correctPokemon.height) {
+        comparisons.height = "↑";
     }
     if (guessedPokemon.weight > correctPokemon.weight) {
-        comparisons.weight = "↑";
-    } else if (guessedPokemon.weight < correctPokemon.weight) {
         comparisons.weight = "↓";
+    } else if (guessedPokemon.weight < correctPokemon.weight) {
+        comparisons.weight = "↑";
     }
     return comparisons;
 };
