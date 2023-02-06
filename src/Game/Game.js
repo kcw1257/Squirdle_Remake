@@ -5,10 +5,8 @@ import PokemonService from "./PokemonService.js";
 import _ from "lodash";
 import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
-import "./Game.css";
+import "./Game.scss";
 import Select from "react-select";
-import AsyncSelect from "react-select/async";
 
 const Game = () => {
     const [correctPokemon, setCorrectPokemon] = useState({});
@@ -65,59 +63,26 @@ const Game = () => {
 
     return (
         <>
-            <Container>
-                <Form>
-                    <Form.Group className="mb-3" controlId="formBasicEmail">
-                        <div className="flexbox">
-                            <div style={{ width: "100vw" }}>
-                                <Select
-                                    options={pokemonList}
-                                    onChange={(e) => setId(e.value)}
-                                />
-                            </div>
-                            <Button
-                                variant="outline-primary"
-                                onClick={() => {
-                                    searchPokemon(id);
-                                }}
-                            >
-                                Submit
-                            </Button>
+            <Container className="gameBox">
+                <div className="flexbox">
+                    <label>Enter your pokemon:</label>
+                    <div className="flexbox2">
+                        <div style={{ width: "100vw" }}>
+                            <Select
+                                options={pokemonList}
+                                onChange={(e) => setId(e.value)}
+                            />
                         </div>
-                    </Form.Group>
-                    {/* <label>
-                    Guess a Pokemon:
-                    <input
-                        type="text"
-                        value={id}
-                        onChange={(e) => setId(e.target.value)}
-                    />
-                </label> */}
-                </Form>
-                <button
-                    onClick={() => {
-                        setCorrectPokemon({});
-                        setGuessedPokemons([]);
-                        setRevealPokemon(false);
-                        randomPokemon();
-                    }}
-                >
-                    Reset Game
-                </button>
-                <button
-                    onClick={() => {
-                        setRevealPokemon(true);
-                    }}
-                >
-                    Reveal Pokemon
-                </button>
-                <button
-                    onClick={() => {
-                        test();
-                    }}
-                >
-                    Test
-                </button>
+                        <Button
+                            variant="outline-primary"
+                            onClick={() => {
+                                searchPokemon(id);
+                            }}
+                        >
+                            Submit
+                        </Button>
+                    </div>
+                </div>
                 <Table striped bordered hover>
                     <thead>
                         <tr>
@@ -132,7 +97,7 @@ const Game = () => {
                     </thead>
                     <tbody>
                         <tr>
-                            <td>Random Pokemon</td>
+                            <td>Pokemon to be found:</td>
                             <td id="test">
                                 {revealPokemon ? (
                                     correctPokemon.name
@@ -248,6 +213,33 @@ const Game = () => {
                         ))}
                     </tbody>
                 </Table>
+                <Button
+                    variant="outline-primary"
+                    onClick={() => {
+                        setCorrectPokemon({});
+                        setGuessedPokemons([]);
+                        setRevealPokemon(false);
+                        randomPokemon();
+                    }}
+                >
+                    Reset Game
+                </Button>
+                <Button
+                    variant="outline-primary"
+                    onClick={() => {
+                        setRevealPokemon(true);
+                    }}
+                >
+                    Reveal Pokemon
+                </Button>
+                <Button
+                    variant="outline-primary"
+                    onClick={() => {
+                        test();
+                    }}
+                >
+                    Test
+                </Button>
             </Container>
         </>
     );

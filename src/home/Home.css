@@ -1,0 +1,19 @@
+p {
+    color: white;
+    display: inline;
+    font-size: large;
+}
+
+h1 {
+    color: white;
+}
+
+.home {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.homeText {
+    text-align: center;
+    margin-top: 20px;
+}
